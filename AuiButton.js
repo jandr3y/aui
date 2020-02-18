@@ -18,7 +18,7 @@
       }
     </style>
     <button id="button" class="aui">
-      <slot></slot>
+      <i id="iconLeft" class="aui fa"></i><slot></slot>
     </button>
   `);
 
@@ -32,7 +32,7 @@
     }
 
     static get observedAttributes() {
-      return ['disabled', 'color'];
+      return ['disabled', 'color', 'icon'];
     }
 
     onChangeDisabled(value){
@@ -46,13 +46,10 @@
     }
 
     onLoad(){
-      const { button } = this.elements;
-
+      const { button, iconLeft } = this.elements;
       button.classList.add(this.get('color'));
-      
+      iconLeft.classList.add('fa-' + this.get('icon'))
       button.disabled = this.getAttribute('disabled');
-
-      button.on('click', () => alert("HAHA!"));
     }
   }
 

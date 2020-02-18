@@ -14,13 +14,23 @@
         margin: 10px;
       }
     </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
+
       <!-- <aui-button> Teste botão comum sem estilo </aui-button> -->
-      <aui-button color="primary" id="p-1">Teste botão primario</aui-button>
+      <aui-button color="primary" id="p-1" icon="home">Teste botão primario</aui-button>
       <aui-button color="accent" id="p-2">Teste botão destaque</aui-button>
-      <aui-button id="p-2">Teste botão comum</aui-button>
+      <aui-button id="p-3">Teste botão comum</aui-button>
+
   </body>
   <script type="text/javascript" src="Aui.js"></script>
-  <script type="text/javascript" src="button.js"></script>
+  <script type="text/javascript" src="AuiButton.js"></script>
+  <script>
+
+    Aui.$('#p-2').elements.button.on('click', () => {
+      console.log('oi')
+    });
+
+  </script>
 </html>

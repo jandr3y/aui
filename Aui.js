@@ -39,7 +39,6 @@ class Aui extends HTMLElement {
 
   getElements(){
     let elements = {};
-
     let htmlElements = [];
 
     if ( typeof this.shadowRoot !== 'undefined' ) {
@@ -67,6 +66,11 @@ class Aui extends HTMLElement {
     }
 
     console.log(this.props)
+  }
+
+  static $(query){
+    let elements = document.querySelectorAll(query);
+    return elements.length > 1 ? elements : elements[0];
   }
 
   render(){
