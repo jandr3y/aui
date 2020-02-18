@@ -2,7 +2,7 @@ class Aui extends HTMLElement {
 
   constructor(config){
     super();
-    this.template = config.template;
+    this.template = this.createTemplate(config.template);
     this.props    = config.props;
     this.debug    = config.debug || false;
     this.theme    = config.theme;
@@ -21,6 +21,10 @@ class Aui extends HTMLElement {
 
       this[name] = newVal;
   }
+  
+  on(type, callback){
+    this.addEventListener(type, (e) => callback(e))
+  }
 
   set(name, value) {
     if ( this.debug ) console.warn('starting safeSetAttribute');
@@ -31,7 +35,7 @@ class Aui extends HTMLElement {
     return this.getAttribute(name);
   }
 
-  static createTemplate(template){
+  createTemplate(template){
       const templateElement = document.createElement('template');
       templateElement.innerHTML = template;
       return templateElement;
@@ -42,7 +46,7 @@ class Aui extends HTMLElement {
     let htmlElements = [];
 
     if ( typeof this.shadowRoot !== 'undefined' ) {
-      htmlElements = this.shadowRoot.querySelectorAll('.aui');
+      htmlElements = this.shadowRoot.querySelectorAll('[id]');
     }
 
     Array.from(htmlElements).map( element => {
@@ -71,6 +75,12 @@ class Aui extends HTMLElement {
   static $(query){
     let elements = document.querySelectorAll(query);
     return elements.length > 1 ? elements : elements[0];
+  }
+
+  static register(tag, className){
+    if( typeof window.customElements.get(tag) === 'undefined' ){
+      window.customElements.define(tag, className);
+    }
   }
 
   render(){

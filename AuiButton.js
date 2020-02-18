@@ -1,7 +1,8 @@
 ((Aui) => {
 
-  const template = Aui.createTemplate(`
+  const template = `
     <style>
+      @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
       :host button {
           background: #ececec;
           padding: 10px 20px;
@@ -17,10 +18,10 @@
         background-color: #ffeb3b;
       }
     </style>
-    <button id="button" class="aui">
-      <i id="iconLeft" class="aui fa"></i><slot></slot>
+    <button id="button">
+      <i id="iconLeft" class="fa"></i><slot></slot>
     </button>
-  `);
+  `;
 
   class AuiButton extends Aui {
 
@@ -35,16 +36,6 @@
       return ['disabled', 'color', 'icon'];
     }
 
-    onChangeDisabled(value){
-      this.elements.button.disabled = (value === 'true') ? true : false;
-    }
-
-    onChangeColor(value){
-      const { button } = this.elements;
-      button.classList.remove('primary', 'accent');
-      button.classList.add(value);
-    }
-
     onLoad(){
       const { button, iconLeft } = this.elements;
       button.classList.add(this.get('color'));
@@ -53,6 +44,5 @@
     }
   }
 
-  const register = () => customElements.define('aui-button', AuiButton);
-  window.WebComponents ? window.WebComponents.waitFor(register) : register();
+  Aui.register('aui-button', AuiButton);
 })(Aui);
