@@ -3,15 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" as="fontAwesome">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" as="robotoFont">
     <style media="screen">
       body {
         display: flex;
         flex-direction: column;
         height: 400px;
+        width: 900px;
+        margin: 0 auto;
       }
 
-      aui-button {
-        margin: 10px;
+      aui-button,
+      aui-input {
+        margin: 10px 0px;
       }
     </style>
   </head>
@@ -23,12 +28,78 @@
       <hr>
 
       <h3>Inputs</h3>
-      <aui-input placeholder="Meu placeholder" id="senha" visible="false"></aui-input>
+      <aui-input placeholder="Exemplo input icone" icon="search"></aui-input>
+
+      <aui-input placeholder="Exemplo input 2"></aui-input>
+
+      <aui-input placeholder="Exemplo input icone alinhado a esquerda" icon="search" icon-position="right"></aui-input>
+
+      <aui-input placeholder="Exemplo input icone alinhado a esquerda" value="teste" onchange="fMasc( this, mCPF );" error="Este campo esta incorreto"></aui-input>
+
+
   </body>
   <script type="text/javascript" src="Aui.js"></script>
+  <script type="text/javascript">
+    Aui.theme = {
+      primaryColor: '#42a5f5',
+      accentColor: '#ffeb3b'
+    }
+  </script>
   <script type="text/javascript" src="AuiButton.js"></script>
   <script type="text/javascript" src="AuiInput.js"></script>
   <script>
+
+  function fMasc(objeto,mascara) {
+  				obj=objeto
+  				masc=mascara
+  				setTimeout("fMascEx()",1)
+  			}
+  			function fMascEx() {
+          console.log(obj.value)
+  				obj.value=masc(obj.value)
+  			}
+  			function mTel(tel) {
+  				tel=tel.replace(/\D/g,"")
+  				tel=tel.replace(/^(\d)/,"($1")
+  				tel=tel.replace(/(.{3})(\d)/,"$1)$2")
+  				if(tel.length == 9) {
+  					tel=tel.replace(/(.{1})$/,"-$1")
+  				} else if (tel.length == 10) {
+  					tel=tel.replace(/(.{2})$/,"-$1")
+  				} else if (tel.length == 11) {
+  					tel=tel.replace(/(.{3})$/,"-$1")
+  				} else if (tel.length == 12) {
+  					tel=tel.replace(/(.{4})$/,"-$1")
+  				} else if (tel.length > 12) {
+  					tel=tel.replace(/(.{4})$/,"-$1")
+  				}
+  				return tel;
+  			}
+  			function mCNPJ(cnpj){
+  				cnpj=cnpj.replace(/\D/g,"")
+  				cnpj=cnpj.replace(/^(\d{2})(\d)/,"$1.$2")
+  				cnpj=cnpj.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
+  				cnpj=cnpj.replace(/\.(\d{3})(\d)/,".$1/$2")
+  				cnpj=cnpj.replace(/(\d{4})(\d)/,"$1-$2")
+  				return cnpj
+  			}
+  			function mCPF(cpf){
+  				cpf=cpf.replace(/\D/g,"")
+  				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+  				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+  				cpf=cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+  				return cpf
+  			}
+  			function mCEP(cep){
+  				cep=cep.replace(/\D/g,"")
+  				cep=cep.replace(/^(\d{2})(\d)/,"$1.$2")
+  				cep=cep.replace(/\.(\d{3})(\d)/,".$1-$2")
+  				return cep
+  			}
+  			function mNum(num){
+  				num=num.replace(/\D/g,"")
+  				return num
+  			}
 
     Aui.$('#p-2').on('click', () => {
       Aui.$('#senha').set('visible', 'true')

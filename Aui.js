@@ -1,3 +1,4 @@
+
 class Aui extends HTMLElement {
 
   constructor(config){
@@ -6,6 +7,7 @@ class Aui extends HTMLElement {
     this.props    = config.props;
     this.debug    = config.debug || false;
     this.theme    = config.theme;
+    this.import   = config.import;
   }
 
   attributeChangedCallback(name, oldVal, newVal){
@@ -21,7 +23,7 @@ class Aui extends HTMLElement {
 
       this[name] = newVal;
   }
-  
+
   on(type, callback){
     this.addEventListener(type, (e) => callback(e))
   }
@@ -37,6 +39,7 @@ class Aui extends HTMLElement {
 
   createTemplate(template){
       const templateElement = document.createElement('template');
+
       templateElement.innerHTML = template;
       return templateElement;
   }
@@ -68,8 +71,6 @@ class Aui extends HTMLElement {
     if( typeof this.onLoad === 'function' ) {
       this.onLoad();
     }
-
-    console.log(this.props)
   }
 
   static $(query){
@@ -83,9 +84,20 @@ class Aui extends HTMLElement {
     }
   }
 
+  static html(template){
+    return template;
+  }
+
   render(){
     if ( this.debug ) console.warn('Starting render...');
     this.attachShadow({ mode: 'open' });
+
+    if ( typeof this.import !== 'undefined' ){
+      this.import.map( alias => {
+          this.template.content.insertBefore(document.head.querySelector('[as="' + alias + '"]').cloneNode(true), this.template.childNodes[0])
+      })
+    }
+
     this.shadowRoot.appendChild(this.template.content.cloneNode(true));
 
   }

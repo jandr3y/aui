@@ -1,8 +1,7 @@
 ((Aui) => {
 
-  const template = `
+  const template = Aui.html`
     <style>
-      @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
       :host button {
           background: #ececec;
           padding: 10px 20px;
@@ -15,7 +14,7 @@
       }
 
       :host .accent {
-        background-color: #ffeb3b;
+        background-color: ${Aui.theme.accentColor};
       }
     </style>
     <button id="button">
