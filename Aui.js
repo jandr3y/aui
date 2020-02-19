@@ -63,6 +63,11 @@ class Aui extends HTMLElement {
     return elements;
   }
 
+
+  initAttributes(){
+    // TODO: Call all atributes events after load
+  }
+
   connectedCallback() {
     if ( this.debug ) console.warn('Starting connectedCallback...');
     this.render(this, this.template);
@@ -71,6 +76,8 @@ class Aui extends HTMLElement {
     if( typeof this.onLoad === 'function' ) {
       this.onLoad();
     }
+
+    this.initAttributes();
   }
 
   static $(query){

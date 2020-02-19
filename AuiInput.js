@@ -54,7 +54,9 @@
               'visible',
               'icon',
               'icon-position',
-              'error'
+              'error',
+              'value',
+              'name'
             ];
         }
 
@@ -74,6 +76,8 @@
 
             input.on('focus', () => box.style.borderColor = Aui.theme.primaryColor);
             input.on('blur', () => box.style.borderColor = this.get('error') ? 'red' : 'black');
+            
+            input.name = this.get('name')
             input.placeholder = this.get('placeholder');
 
             input.type = this.get('visible') == 'false' ? 'password' : 'text';
